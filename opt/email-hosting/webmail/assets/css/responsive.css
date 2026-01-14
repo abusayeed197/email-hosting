@@ -1,0 +1,454 @@
+/* ============================================
+   Responsive Styles
+   ============================================ */
+
+/* Large Desktop (1400px+) */
+@media (min-width: 1400px) {
+    .stats-section {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .email-section {
+        grid-template-columns: 1fr 350px;
+    }
+}
+
+/* Desktop (1200px - 1399px) */
+@media (max-width: 1399px) {
+    .quick-actions-panel {
+        display: none;
+    }
+    
+    .email-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tablet Landscape (992px - 1199px) */
+@media (max-width: 1199px) {
+    :root {
+        --sidebar-width: 240px;
+    }
+    
+    .stats-section {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .greeting h2 {
+        font-size: 1.1rem;
+    }
+    
+    .greeting p {
+        display: none;
+    }
+    
+    .search-box kbd {
+        display: none;
+    }
+    
+    .user-info {
+        display: none;
+    }
+}
+
+/* Tablet Portrait (768px - 991px) */
+@media (max-width: 991px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        transform: translateX(-100%);
+        z-index: 1000;
+        box-shadow: var(--shadow-xl);
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .sidebar-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition-fast);
+        z-index: 999;
+    }
+    
+    .sidebar-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .mobile-menu-btn {
+        display: flex;
+    }
+    
+    .topbar-center {
+        display: none;
+    }
+    
+    .topbar {
+        padding: 0 var(--spacing-md);
+    }
+    
+    .content-area {
+        padding: var(--spacing-md);
+    }
+    
+    .stat-card {
+        padding: var(--spacing-md);
+    }
+    
+    .stat-value strong {
+        font-size: 1.25rem;
+    }
+    
+    .login-left {
+        display: none;
+    }
+    
+    .login-right {
+        width: 100%;
+    }
+}
+
+/* Mobile Landscape (576px - 767px) */
+@media (max-width: 767px) {
+    .stats-section {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-sm);
+    }
+    
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-sm);
+    }
+    
+    .stat-trend {
+        display: none;
+    }
+    
+    .topbar-right .topbar-btn:not(.notification-btn) {
+        display: none;
+    }
+    
+    .user-profile {
+        padding: var(--spacing-xs);
+    }
+    
+    .dropdown-toggle {
+        display: none;
+    }
+    
+    .panel-header {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        align-items: flex-start;
+    }
+    
+    .panel-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    
+    .filter-select {
+        width: 100%;
+        margin-top: var(--spacing-sm);
+    }
+    
+    .email-item {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .email-tags {
+        display: none;
+    }
+    
+    .email-avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 0.8rem;
+    }
+    
+    .compose-container,
+    .email-view-container,
+    .settings-container {
+        width: 100%;
+        max-width: 100vw;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+    
+    .settings-content {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .settings-nav {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+        display: flex;
+        overflow-x: auto;
+        padding: var(--spacing-sm);
+    }
+    
+    .settings-nav-btn {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+}
+
+/* Mobile Portrait (< 576px) */
+@media (max-width: 575px) {
+    :root {
+        --spacing-lg: 16px;
+        --spacing-xl: 24px;
+    }
+    
+    .stats-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-card {
+        flex-direction: row;
+        text-align: left;
+    }
+    
+    .topbar {
+        height: 60px;
+    }
+    
+    .greeting h2 {
+        font-size: 1rem;
+    }
+    
+    .avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+    
+    .email-item {
+        gap: var(--spacing-sm);
+    }
+    
+    .email-checkbox,
+    .email-star {
+        display: none;
+    }
+    
+    .email-preview {
+        display: none;
+    }
+    
+    .login-box {
+        padding: var(--spacing-md);
+    }
+    
+    .login-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .input-wrapper input {
+        padding: 12px 12px 12px 42px;
+    }
+    
+    .compose-field {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .compose-field label {
+        width: 100%;
+        margin-bottom: var(--spacing-xs);
+    }
+    
+    .compose-field input {
+        width: 100%;
+    }
+    
+    .compose-actions {
+        flex-direction: column;
+    }
+    
+    .compose-actions .btn {
+        width: 100%;
+    }
+    
+    .attach-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .email-view-actions {
+        flex-direction: column;
+    }
+    
+    .email-view-actions .btn {
+        width: 100%;
+    }
+    
+    .modal-header h3 span {
+        display: none;
+    }
+    
+    .toast-container {
+        left: var(--spacing-md);
+        right: var(--spacing-md);
+        bottom: var(--spacing-md);
+    }
+    
+    .toast {
+        min-width: auto;
+        width: 100%;
+    }
+}
+
+/* Small Mobile (< 400px) */
+@media (max-width: 399px) {
+    .topbar-left {
+        gap: var(--spacing-xs);
+    }
+    
+    .greeting {
+        display: none;
+    }
+    
+    .notification-btn {
+        display: none;
+    }
+    
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .stat-value strong {
+        font-size: 1.1rem;
+    }
+    
+    .stat-label {
+        font-size: 0.7rem;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    /* Add dark mode variables if needed */
+}
+
+/* Print Styles */
+@media print {
+    .sidebar,
+    .topbar,
+    .stats-section,
+    .quick-actions-panel,
+    .panel-header,
+    .email-view-actions,
+    .modal-header {
+        display: none !important;
+    }
+    
+    .main-wrapper {
+        width: 100%;
+    }
+    
+    .email-view-content {
+        padding: 0;
+    }
+    
+    .email-panel {
+        border: none;
+        box-shadow: none;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --border-light: #666;
+        --border-medium: #444;
+        --text-muted: #666;
+    }
+    
+    .btn-primary {
+        border: 2px solid #000;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .nav-item a,
+    .email-item,
+    .contact-item,
+    .quick-action-btn {
+        min-height: 44px;
+    }
+    
+    .action-btn,
+    .topbar-btn,
+    .modal-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    .user-dropdown {
+        display: none;
+    }
+    
+    .user-profile:active .user-dropdown {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+/* Landscape Orientation on Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .login-container {
+        min-height: auto;
+    }
+    
+    .login-header {
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .login-form {
+        gap: var(--spacing-sm);
+    }
+    
+    .login-footer {
+        margin-top: var(--spacing-md);
+    }
+    
+    .compose-editor textarea {
+        min-height: 150px;
+    }
+}
+
+/* Retina Display */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .logo-icon,
+    .avatar,
+    .stat-icon {
+        -webkit-font-smoothing: antialiased;
+    }
+}
