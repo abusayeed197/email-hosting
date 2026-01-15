@@ -142,16 +142,37 @@ echo -e "${GREEN}✅ Packages installed${NC}"
 #################################################
 echo -e "${CYAN}[3/12] Configuring database...${NC}"
 
-# Secure MySQL installation
-mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';"
-mysql -u root -p"$MYSQL_ROOT_PASS" -e "DELETE FROM mysql.user WHERE User='';"
-mysql -u root -p"$MYSQL_ROOT_PASS" -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
-mysql -u root -p"$MYSQL_ROOT_PASS" -e "DROP DATABASE IF EXISTS test;"
-mysql -u root -p"$MYSQL_ROOT_PASS" -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';"
-mysql -u root -p"$MYSQL_ROOT_PASS" -e "FLUSH PRIVILEGES;"
+# Check if MySQL root needs password
+if mysql -u root -e "SELECT 1" &>/dev/null; then
+    # No password set, set new password
+    mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';"
+    MYSQL_CMD="mysql -u root -p$MYSQL_ROOT_PASS"
+else
+    # Password already set, ask for it
+    echo -e "${YELLOW}MySQL root password is already set.${NC}"
+    read -sp "Enter current MySQL root password: " CURRENT_MYSQL_PASS
+    echo ""
+    
+    # Test the password
+    if ! mysql -u root -p"$CURRENT_MYSQL_PASS" -e "SELECT 1" &>/dev/null; then
+        echo -e "${RED}❌ Invalid MySQL password. Please try again.${NC}"
+        exit 1
+    fi
+    
+    # Update to new password
+    mysql -u root -p"$CURRENT_MYSQL_PASS" -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';"
+    MYSQL_CMD="mysql -u root -p$MYSQL_ROOT_PASS"
+fi
+
+# Secure MySQL installation  
+$MYSQL_CMD -e "DELETE FROM mysql.user WHERE User='';" 2>/dev/null || true
+$MYSQL_CMD -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');" 2>/dev/null || true
+$MYSQL_CMD -e "DROP DATABASE IF EXISTS test;" 2>/dev/null || true
+$MYSQL_CMD -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';" 2>/dev/null || true
+$MYSQL_CMD -e "FLUSH PRIVILEGES;"
 
 # Create mail database
-mysql -u root -p"$MYSQL_ROOT_PASS" << EOF
+$MYSQL_CMD << EOF
 CREATE DATABASE IF NOT EXISTS mailserver;
 CREATE USER IF NOT EXISTS 'mailuser'@'localhost' IDENTIFIED BY '$MAIL_DB_PASS';
 GRANT ALL PRIVILEGES ON mailserver.* TO 'mailuser'@'localhost';
